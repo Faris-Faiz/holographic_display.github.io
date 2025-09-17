@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holographic Display</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: white;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px 0;
+        }
+
+        .video-box {
+            border: 2px solid #000;
+            border-radius: 8px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: #f9f9f9;
+            text-align: center;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .video-box:hover {
+            background-color: #e9e9e9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-box h3 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .video-box p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .play-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px auto;
+        }
+
+        .play-icon::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 20px solid white;
+            border-top: 12px solid transparent;
+            border-bottom: 12px solid transparent;
+            margin-left: 4px;
+        }
+
+        .fullscreen-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .fullscreen-video {
+            max-width: 90%;
+            max-height: 90%;
+            width: auto;
+            height: auto;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .close-btn:hover {
+            opacity: 0.7;
+        }
+
+        /* Responsive design for horizontal screens */
+        @media (orientation: landscape) and (min-width: 768px) {
+            .video-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 15px;
+            }
+            
+            .video-box {
+                min-height: 180px;
+            }
+        }
+
+        /* Responsive design for very wide screens */
+        @media (min-width: 1400px) {
+            .video-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .video-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .video-box {
+                min-height: 150px;
+            }
+            
+            body {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Holographic Display</h1>
+        
+        <div class="video-grid">
+            <div class="video-box" onclick="playVideo('placeholder1.mp4')">
+                <h3>Video 1</h3>
+                <p>Placeholder video description</p>
+                <div class="play-icon"></div>
+            </div>
+            
+            <div class="video-box" onclick="playVideo('placeholder2.mp4')">
+                <h3>Video 2</h3>
+                <p>Placeholder video description</p>
+                <div class="play-icon"></div>
+            </div>
+            
+            <div class="video-box" onclick="playVideo('placeholder3.mp4')">
+                <h3>Video 3</h3>
+                <p>Placeholder video description</p>
+                <div class="play-icon"></div>
+            </div>
+            
+            <div class="video-box" onclick="playVideo('placeholder4.mp4')">
+                <h3>Video 4</h3>
+                <p>Placeholder video description</p>
+                <div class="play-icon"></div>
+            </div>
+            
+            <div class="video-box" onclick="playVideo('placeholder5.mp4')">
+                <h3>Video 5</h3>
+                <p>Placeholder video description</p>
+                <div class="play-icon"></div>
+            </div>
+            
+            <div class="video-box" onclick="playVideo('placeholder6.mp4')">
+                <h3>Video 6</h3>
+                <p>Placeholder video description</p>
+                <div class="play-icon"></div>
+            </div>
+            
+            <div class="video-box" onclick="playVideo('placeholder7.mp4')">
+                <h3>Video 7</h3>
+                <p>Placeholder video description</p>
+                <div class="play-icon"></div>
+            </div>
+            
+            <div class="video-box" onclick="playVideo('placeholder8.mp4')">
+                <h3>Video 8</h3>
+                <p>Placeholder video description</p>
+                <div class="play-icon"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fullscreen video overlay -->
+    <div class="fullscreen-overlay" id="fullscreenOverlay">
+        <span class="close-btn" onclick="closeFullscreen()">&times;</span>
+        <video class="fullscreen-video" id="fullscreenVideo" controls>
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <script>
+        function playVideo(videoSrc) {
+            const overlay = document.getElementById('fullscreenOverlay');
+            const video = document.getElementById('fullscreenVideo');
+            
+            // Set the video source
+            video.src = videoSrc;
+            
+            // Show the overlay
+            overlay.style.display = 'flex';
+            
+            // Play the video
+            video.play().catch(error => {
+                console.log('Error playing video:', error);
+                // If video fails to load, show an alert
+                alert('Video not found. Please add the video file: ' + videoSrc);
+                closeFullscreen();
+            });
+            
+            // Attempt to enter fullscreen
+            if (video.requestFullscreen) {
+                video.requestFullscreen();
+            } else if (video.webkitRequestFullscreen) {
+                video.webkitRequestFullscreen();
+            } else if (video.msRequestFullscreen) {
+                video.msRequestFullscreen();
+            }
+        }
+
+        function closeFullscreen() {
+            const overlay = document.getElementById('fullscreenOverlay');
+            const video = document.getElementById('fullscreenVideo');
+            
+            // Hide the overlay
+            overlay.style.display = 'none';
+            
+            // Pause and reset the video
+            video.pause();
+            video.currentTime = 0;
+            
+            // Exit fullscreen if in fullscreen mode
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            }
+        }
+
+        // Close fullscreen when clicking outside the video
+        document.getElementById('fullscreenOverlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeFullscreen();
+            }
+        });
+
+        // Handle escape key to close fullscreen
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeFullscreen();
+            }
+        });
+
+        // Handle fullscreen change events
+        document.addEventListener('fullscreenchange', function() {
+            if (!document.fullscreenElement) {
+                closeFullscreen();
+            }
+        });
+
+        document.addEventListener('webkitfullscreenchange', function() {
+            if (!document.webkitFullscreenElement) {
+                closeFullscreen();
+            }
+        });
+    </script>
+</body>
+</html>

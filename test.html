@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Test</title>
+</head>
+<body>
+    <h1>Video Functionality Test</h1>
+    <p>To test with an actual video, replace 'placeholder1.mp4' with a real video URL or file path.</p>
+    <button onclick="testVideo()">Test with Sample Video</button>
+    
+    <script>
+        function testVideo() {
+            // Using a sample video URL for testing
+            const videoUrl = 'https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4';
+            window.open('test-video.html?video=' + encodeURIComponent(videoUrl), '_blank');
+        }
+    </script>
+</body>
+</html>
