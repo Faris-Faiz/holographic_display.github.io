@@ -211,10 +211,18 @@
     </div>
 
     <script>
+        let autoCloseTimer = null;
+
         function playVideo(videoSrc) {
             const overlay = document.getElementById('fullscreenOverlay');
             const video = document.getElementById('fullscreenVideo');
             const iframe = document.getElementById('youtubeFrame');
+
+            // Clear any existing timer
+            if (autoCloseTimer) {
+                clearTimeout(autoCloseTimer);
+                autoCloseTimer = null;
+            }
 
             // Trim whitespace from URL
             videoSrc = videoSrc.trim();
@@ -225,8 +233,10 @@
             video.src = '';
             iframe.src = '';
 
-            // Check if YouTube link
-            if (videoSrc.includes('youtube.com') || videoSrc.includes('youtu.be')) {
+            let isDrive = videoSrc.includes('drive.google.com') && videoSrc.includes('/preview');
+            let isYouTube = videoSrc.includes('youtube.com') || videoSrc.includes('youtu.be');
+
+            if (isYouTube) {
                 let videoId = '';
 
                 if (videoSrc.includes('youtu.be/')) {
@@ -243,8 +253,14 @@
                 // Load YouTube embed
                 iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
                 iframe.style.display = 'block';
+
+            } else if (isDrive) {
+                // Load Google Drive preview
+                iframe.src = videoSrc; // Must be .../preview URL
+                iframe.style.display = 'block';
+
             } else {
-                // Load local video
+                // Assume local video file
                 video.src = videoSrc;
                 video.style.display = 'block';
 
@@ -260,7 +276,7 @@
             // Show overlay
             overlay.style.display = 'flex';
 
-            // Request fullscreen on next animation frame (to ensure element is rendered)
+            // Request fullscreen on next animation frame
             requestAnimationFrame(() => {
                 if (overlay.requestFullscreen) {
                     overlay.requestFullscreen();
@@ -272,9 +288,22 @@
                     console.warn("Fullscreen API not supported — showing modal only.");
                 }
             });
+
+            // ⏱️ SET AUTO-CLOSE TIMER — CLOSE AFTER 10 SECONDS
+            const AUTO_CLOSE_DELAY = 10000; // 10 seconds
+            autoCloseTimer = setTimeout(() => {
+                console.log("Auto-closing video after timeout.");
+                closeFullscreen();
+            }, AUTO_CLOSE_DELAY);
         }
 
         function closeFullscreen() {
+            // Clear auto-close timer if active
+            if (autoCloseTimer) {
+                clearTimeout(autoCloseTimer);
+                autoCloseTimer = null;
+            }
+
             const overlay = document.getElementById('fullscreenOverlay');
             const video = document.getElementById('fullscreenVideo');
             const iframe = document.getElementById('youtubeFrame');
