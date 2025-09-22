@@ -63,12 +63,18 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
+            position: relative;
         }
 
         .video-box:hover {
             background-color: #e9e9e9;
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-box.loading {
+            pointer-events: none;
+            opacity: 0.7;
         }
 
         .video-box h3 {
@@ -103,52 +109,64 @@
             margin-left: 4px;
         }
 
-        .fullscreen-overlay {
+        .loading-spinner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #333;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
             display: none;
+        }
+
+        .video-box.loading .loading-spinner {
+            display: block;
+        }
+
+        .video-box.loading .play-icon {
+            display: none;
+        }
+
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Fullscreen video styles */
+        .fullscreen-video {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
+            width: 100vw;
+            height: 100vh;
+            background-color: black;
+            z-index: 9999;
+            display: none;
         }
 
-        #videoContainer {
-            width: 90%;
-            height: 90%;
-            max-width: 90%;
-            max-height: 90%;
-            position: relative;
-        }
-
-        .fullscreen-video {
+        .fullscreen-video video {
             width: 100%;
             height: 100%;
             object-fit: contain;
         }
 
-        #youtubeFrame {
-            width: 100%;
-            height: 100%;
+        .error-message {
+            color: #ff4444;
+            font-size: 12px;
+            margin-top: 5px;
             display: none;
-            border: none;
         }
 
-        .close-btn {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            color: white;
-            font-size: 40px;
-            cursor: pointer;
-            z-index: 1001;
+        .video-box.error .error-message {
+            display: block;
         }
 
-        .close-btn:hover {
-            opacity: 0.7;
+        .video-box.error {
+            border-color: #ff4444;
         }
     </style>
 </head>
@@ -157,66 +175,125 @@
         <h1>Holographic Display</h1>
         
         <div class="video-grid">
-            <div class="video-box" onclick="playVideo('https://www.youtube.com/watch?v=vtLRykWHw9k')">
-                <img src="Adam Q1 Thumbnail.png" alt="Adam Q1 Thumbnail"> 
+            <div class="video-box" data-video-src="https://raw.githubusercontent.com/Faris-Faiz/holographic_display.github.io/refs/heads/main/Adam%20Q1.mp4" onclick="playVideo(this)">
+                <img src="Adam Q1 Thumbnail.png" alt="Adam Q1 Thumbnail">
                 <h3>Tell me a joke</h3>
                 <p>by Adam</p>
                 <div class="play-icon"></div>
+                <div class="loading-spinner"></div>
+                <div class="error-message">Failed to load video</div>
             </div>
-            
-            <div class="video-box" onclick="playVideo('https://www.youtube.com/watch?v=0oxR7v85b-o')">
-                <img src="Adam Q2 Thumbnail.png" alt="Adam Q2 Thumbnail"> 
+           
+            <div class="video-box" data-video-src="https://raw.githubusercontent.com/Faris-Faiz/holographic_display.github.io/refs/heads/main/Adam%20Q2.mp4" onclick="playVideo(this)">
+                <img src="Adam Q2 Thumbnail.png" alt="Adam Q2 Thumbnail">
                 <h3>Teach me a Gen Z word</h3>
                 <p>by Adam</p>
                 <div class="play-icon"></div>
+                <div class="loading-spinner"></div>
+                <div class="error-message">Failed to load video</div>
             </div>
-            
-            <div class="video-box" onclick="playVideo('https://www.youtube.com/watch?v=lBdzglE0sWQ')">
-                <img src="Adam Q3 Thumbnail.png" alt="Adam Q3 Thumbnail"> 
+           
+            <div class="video-box" data-video-src="https://raw.githubusercontent.com/Faris-Faiz/holographic_display.github.io/refs/heads/main/Adam%20Q3.mp4" onclick="playVideo(this)">
+                <img src="Adam Q3 Thumbnail.png" alt="Adam Q3 Thumbnail">
                 <h3>Share a hidden talent</h3>
                 <p>by Adam</p>
                 <div class="play-icon"></div>
+                <div class="loading-spinner"></div>
+                <div class="error-message">Failed to load video</div>
             </div>
-            
-            <div class="video-box" onclick="playVideo('https://www.youtube.com/watch?v=YIoz97Oi_L0')">
-                <img src="Liz Q1 Thumbnail.png" alt="Liz Q1 Thumbnail"> 
+           
+            <div class="video-box" data-video-src="https://raw.githubusercontent.com/Faris-Faiz/holographic_display.github.io/refs/heads/main/Liz%20Q1.mov" onclick="playVideo(this)">
+                <img src="Liz Q1 Thumbnail.png" alt="Liz Q1 Thumbnail">
                 <h3>Tell me a joke</h3>
                 <p>by Liz</p>
                 <div class="play-icon"></div>
+                <div class="loading-spinner"></div>
+                <div class="error-message">Failed to load video</div>
             </div>
-            
-            <div class="video-box" onclick="playVideo('https://www.youtube.com/watch?v=0t5bF8OIMxE')">
-                <img src="Liz Q2 Thumbnail.png" alt="Liz Q2 Thumbnail"> 
+           
+            <div class="video-box" data-video-src="https://raw.githubusercontent.com/Faris-Faiz/holographic_display.github.io/refs/heads/main/Liz%20Q2.mov" onclick="playVideo(this)">
+                <img src="Liz Q2 Thumbnail.png" alt="Liz Q2 Thumbnail">
                 <h3>Teach me a Gen Z word</h3>
                 <p>by Liz</p>
                 <div class="play-icon"></div>
+                <div class="loading-spinner"></div>
+                <div class="error-message">Failed to load video</div>
             </div>
-            
-            <div class="video-box" onclick="playVideo('Liz Q3.mov')">
-                <img src="Liz Q3 Thumbnail.png" alt="https://www.youtube.com/watch?v=sx6XH9rmO28"> 
+           
+            <div class="video-box" data-video-src="https://raw.githubusercontent.com/Faris-Faiz/holographic_display.github.io/refs/heads/main/Liz%20Q3.mov" onclick="playVideo(this)">
+                <img src="Liz Q3 Thumbnail.png" alt="Liz Q3 Thumbnail">
                 <h3>Share a hidden talent</h3>
                 <p>by Liz</p>
                 <div class="play-icon"></div>
+                <div class="loading-spinner"></div>
+                <div class="error-message">Failed to load video</div>
             </div>
         </div>
     </div>
 
-    <!-- Fullscreen video overlay -->
-    <div class="fullscreen-overlay" id="fullscreenOverlay">
-        <span class="close-btn" onclick="closeFullscreen()">&times;</span>
-        <div id="videoContainer">
-            <video class="fullscreen-video" id="fullscreenVideo" controls></video>
-            <iframe id="youtubeFrame" allow="autoplay; fullscreen" allowfullscreen></iframe>
-        </div>
+    <!-- Fullscreen container -->
+    <div class="fullscreen-video" id="fullscreenPlayer">
+        <video controls autoplay></video>
     </div>
 
     <script>
+        let blobUrlCache = new Map();
+        let activeBlobs = new Set();
         let autoCloseTimer = null;
+        let currentVideo = null;
 
-        function playVideo(videoSrc) {
-            const overlay = document.getElementById('fullscreenOverlay');
-            const video = document.getElementById('fullscreenVideo');
-            const iframe = document.getElementById('youtubeFrame');
+        // Fetch video as blob and create blob URL
+        async function fetchVideoAsBlob(url) {
+            try {
+                console.log('Fetching video from:', url);
+                const response = await fetch(url);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const blob = await response.blob();
+                const blobUrl = URL.createObjectURL(blob);
+                activeBlobs.add(blobUrl);
+                
+                console.log('Successfully created blob URL for:', url);
+                return blobUrl;
+            } catch (error) {
+                console.error('Error fetching video:', error);
+                throw error;
+            }
+        }
+
+        // Preload all videos as blobs
+        async function preloadVideos() {
+            const videoBoxes = document.querySelectorAll('.video-box[data-video-src]');
+            
+            for (const box of videoBoxes) {
+                const videoSrc = box.getAttribute('data-video-src');
+                if (videoSrc && !blobUrlCache.has(videoSrc)) {
+                    try {
+                        box.classList.add('loading');
+                        const blobUrl = await fetchVideoAsBlob(videoSrc);
+                        blobUrlCache.set(videoSrc, blobUrl);
+                        box.classList.remove('loading');
+                        console.log('Preloaded video:', videoSrc);
+                    } catch (error) {
+                        console.error('Failed to preload video:', videoSrc, error);
+                        box.classList.remove('loading');
+                        box.classList.add('error');
+                    }
+                }
+            }
+        }
+
+        // Play video in true fullscreen
+        async function playVideo(element) {
+            const videoSrc = element.getAttribute('data-video-src');
+            
+            if (!videoSrc) {
+                alert('No video source found');
+                return;
+            }
 
             // Clear any existing timer
             if (autoCloseTimer) {
@@ -224,126 +301,105 @@
                 autoCloseTimer = null;
             }
 
-            // Trim whitespace from URL
-            videoSrc = videoSrc.trim();
-
-            // Reset both players
-            video.style.display = 'none';
-            iframe.style.display = 'none';
-            video.src = '';
-            iframe.src = '';
-
-            let isDrive = videoSrc.includes('drive.google.com') && videoSrc.includes('/preview');
-            let isYouTube = videoSrc.includes('youtube.com') || videoSrc.includes('youtu.be');
-
-            if (isYouTube) {
-                let videoId = '';
-
-                if (videoSrc.includes('youtu.be/')) {
-                    videoId = videoSrc.split('youtu.be/')[1].split(/[?&]/)[0];
-                } else if (videoSrc.includes('v=')) {
-                    videoId = videoSrc.split('v=')[1].split(/[?&]/)[0];
-                }
-
-                if (!videoId) {
-                    alert('Invalid YouTube URL');
+            let blobUrl = blobUrlCache.get(videoSrc);
+            
+            // If not cached, try to fetch
+            if (!blobUrl) {
+                try {
+                    element.classList.add('loading');
+                    blobUrl = await fetchVideoAsBlob(videoSrc);
+                    blobUrlCache.set(videoSrc, blobUrl);
+                    element.classList.remove('loading');
+                } catch (error) {
+                    console.error('Failed to load video:', error);
+                    element.classList.remove('loading');
+                    element.classList.add('error');
+                    alert('Failed to load video: ' + error.message);
                     return;
                 }
-
-                // Load YouTube embed
-                iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-                iframe.style.display = 'block';
-
-            } else if (isDrive) {
-                // Load Google Drive preview
-                iframe.src = videoSrc; // Must be .../preview URL
-                iframe.style.display = 'block';
-
-            } else {
-                // Assume local video file
-                video.src = videoSrc;
-                video.style.display = 'block';
-
-                // Attempt playback
-                video.play().catch(error => {
-                    console.error('Playback failed:', error);
-                    alert('Failed to play video: ' + videoSrc);
-                    closeFullscreen();
-                    return;
-                });
             }
 
-            // Show overlay
-            overlay.style.display = 'flex';
+            // Get fullscreen container and video
+            const fullscreenPlayer = document.getElementById('fullscreenPlayer');
+            const video = fullscreenPlayer.querySelector('video');
+            
+            // Set video source and show fullscreen
+            video.src = blobUrl;
+            fullscreenPlayer.style.display = 'block';
+            currentVideo = video;
 
-            // Request fullscreen on next animation frame
-            requestAnimationFrame(() => {
-                if (overlay.requestFullscreen) {
-                    overlay.requestFullscreen();
-                } else if (overlay.webkitRequestFullscreen) {
-                    overlay.webkitRequestFullscreen();
-                } else if (overlay.msRequestFullscreen) {
-                    overlay.msRequestFullscreen();
-                } else {
-                    console.warn("Fullscreen API not supported — showing modal only.");
+            // Try to play
+            try {
+                await video.play();
+            } catch (error) {
+                console.error('Playbook failed:', error);
+                // Try muted autoplay as fallback
+                video.muted = true;
+                try {
+                    await video.play();
+                } catch (mutedError) {
+                    console.error('Muted autoplay also failed:', mutedError);
                 }
-            });
+            }
 
-            // ⏱️ SET AUTO-CLOSE TIMER — CLOSE AFTER 10 SECONDS
-            const AUTO_CLOSE_DELAY = 10000; // 10 seconds
+            // Auto-close after 10 seconds
             autoCloseTimer = setTimeout(() => {
-                console.log("Auto-closing video after timeout.");
-                closeFullscreen();
-            }, AUTO_CLOSE_DELAY);
+                closeVideo();
+            }, 10000);
         }
 
-        function closeFullscreen() {
-            // Clear auto-close timer if active
+        // Close video
+        function closeVideo() {
             if (autoCloseTimer) {
                 clearTimeout(autoCloseTimer);
                 autoCloseTimer = null;
             }
 
-            const overlay = document.getElementById('fullscreenOverlay');
-            const video = document.getElementById('fullscreenVideo');
-            const iframe = document.getElementById('youtubeFrame');
-
-            // Stop and reset media
+            const fullscreenPlayer = document.getElementById('fullscreenPlayer');
+            const video = fullscreenPlayer.querySelector('video');
+            
             video.pause();
             video.currentTime = 0;
             video.src = '';
-            iframe.src = '';
-
-            // Hide players
-            video.style.display = 'none';
-            iframe.style.display = 'none';
-
-            // Hide overlay
-            overlay.style.display = 'none';
-
-            // Exit fullscreen if active
-            if (document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement) {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                } else if (document.webkitExitFullscreen) {
-                    document.webkitExitFullscreen();
-                } else if (document.msExitFullscreen) {
-                    document.msExitFullscreen();
-                }
-            }
+            fullscreenPlayer.style.display = 'none';
+            currentVideo = null;
         }
 
-        // Close when clicking overlay background
-        document.getElementById('fullscreenOverlay').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeFullscreen();
+        // Clean up blob URLs
+        function cleanupBlobUrls() {
+            console.log('Cleaning up blob URLs...');
+            
+            for (const blobUrl of activeBlobs) {
+                URL.revokeObjectURL(blobUrl);
+            }
+            
+            blobUrlCache.clear();
+            activeBlobs.clear();
+            console.log('Blob URL cleanup completed');
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', preloadVideos);
+
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', cleanupBlobUrls);
+        window.addEventListener('pagehide', cleanupBlobUrls);
+        document.addEventListener('visibilitychange', function() {
+            if (document.visibilityState === 'hidden') {
+                cleanupBlobUrls();
             }
         });
 
-        // Close on Escape key
+        // Close video on ESC or click
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeFullscreen();
+            if (e.key === 'Escape' && currentVideo) {
+                closeVideo();
+            }
+        });
+
+        document.getElementById('fullscreenPlayer').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeVideo();
             }
         });
     </script>
