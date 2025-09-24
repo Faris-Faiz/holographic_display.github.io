@@ -39,10 +39,11 @@
 
         h2 {
             text-align: center;
-            margin-bottom: 3vh;
-            color: #333;
+            margin-bottom: 6vh;
+            color: #7B9BB8;
             font-size: clamp(1.5rem, 3vw, 2.5rem);
-            opacity: 0.9;
+            font-weight: 300;
+            letter-spacing: 2px;
         }
 
         /* Loading Screen Styles */
@@ -108,66 +109,66 @@
 
         /* Option Selection Grid */
         .options-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 3vh;
-            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            gap: 4vh;
+            max-width: 600px;
             margin: 0 auto;
         }
 
         .option-box {
-            background: white;
-            border: 3px solid #000;
-            border-radius: 20px;
-            padding: 4vh 3vw;
+            background: linear-gradient(white, white) padding-box,
+                        linear-gradient(135deg, #FFE066, #4ECDC4, #E06B9F) border-box;
+            border: 3px solid transparent;
+            border-radius: 25px;
+            padding: 3vh 4vw;
             cursor: pointer;
             transition: all 0.3s ease;
-            text-align: center;
-            min-height: 15vh;
+            text-align: left;
+            min-height: 10vh;
             display: flex;
             align-items: center;
-            justify-content: center;
-            flex-direction: column;
             color: #333;
+            position: relative;
         }
 
         .option-box:hover {
-            transform: translateY(-10px) scale(1.02);
-            background: #f9f9f9;
-            border-color: #333;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
         }
 
         .option-icon {
-            font-size: clamp(2rem, 4vw, 3rem);
-            margin-bottom: 2vh;
+            font-size: 2.5rem;
+            margin-right: 2vw;
+            flex-shrink: 0;
+        }
+
+        .option-text {
+            flex: 1;
         }
 
         .option-title {
-            font-size: clamp(1.2rem, 2.5vw, 2rem);
-            font-weight: bold;
-            margin-bottom: 1vh;
-        }
-
-        .option-description {
-            font-size: clamp(0.9rem, 1.5vw, 1.2rem);
-            opacity: 0.8;
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            font-weight: 600;
+            color: #333;
+            margin: 0;
         }
 
         /* Character Selection Grid */
         .character-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 4vw;
-            max-width: 1000px;
+            gap: 6vw;
+            max-width: 800px;
             margin: 0 auto;
         }
 
         .character-box {
-            background: white;
-            border: 3px solid #000;
-            border-radius: 25px;
-            padding: 3vh 2vw;
+            background: linear-gradient(white, white) padding-box,
+                        linear-gradient(135deg, #4ECDC4, #E06B9F) border-box;
+            border: 3px solid transparent;
+            border-radius: 30px;
+            padding: 4vh 3vw;
             cursor: pointer;
             transition: all 0.3s ease;
             text-align: center;
@@ -182,41 +183,47 @@
         }
 
         .character-box:hover {
-            transform: translateY(-15px) scale(1.05);
-            background: #f9f9f9;
-            border-color: #333;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
         }
 
         .character-image {
-            width: 60%;
+            width: 70%;
             max-width: 200px;
             height: auto;
             border-radius: 15px;
             margin-bottom: 3vh;
             object-fit: cover;
             transition: transform 0.3s ease;
+            /* Placeholder styling when no image */
+            background: #f0f0f0;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .character-box:hover .character-image {
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
 
         .character-name {
-            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-size: clamp(1.5rem, 3vw, 2rem);
             font-weight: bold;
-            margin-bottom: 1vh;
+            color: #333;
+            letter-spacing: 1px;
         }
 
         .selected-option-display {
             font-size: clamp(1rem, 1.8vw, 1.5rem);
             opacity: 0.8;
-            background: #f0f0f0;
-            border: 2px solid #000;
-            padding: 1vh 2vw;
-            border-radius: 10px;
-            margin-bottom: 1vh;
-            color: #333;
+            background: #f8f8f8;
+            border: 2px solid #ddd;
+            padding: 2vh 3vw;
+            border-radius: 15px;
+            margin-bottom: 4vh;
+            color: #666;
+            font-weight: 500;
         }
 
         /* Back Button */
@@ -225,18 +232,19 @@
             top: 3vh;
             left: 3vw;
             background: white;
-            border: 2px solid #000;
-            color: #333;
+            border: 2px solid #ddd;
+            color: #666;
             padding: 1.5vh 3vw;
             border-radius: 15px;
             cursor: pointer;
             font-size: clamp(0.9rem, 1.5vw, 1.2rem);
             transition: all 0.3s ease;
+            font-weight: 500;
         }
 
         .back-button:hover {
-            background: #f0f0f0;
-            border-color: #333;
+            background: #f8f8f8;
+            border-color: #bbb;
             transform: translateY(-2px);
         }
 
@@ -267,7 +275,7 @@
             width: 50px;
             height: 50px;
             border: 4px solid #e0e0e0;
-            border-top: 4px solid #333;
+            border-top: 4px solid #4ECDC4;
             border-radius: 50%;
             animation: spin 1s linear infinite;
             display: none;
@@ -286,30 +294,52 @@
             100% { transform: translate(-50%, -50%) rotate(360deg); }
         }
 
-        /* Responsive adjustments for large displays */
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .character-grid {
+                grid-template-columns: 1fr;
+                gap: 4vh;
+            }
+            
+            .options-grid {
+                gap: 3vh;
+            }
+            
+            .option-box {
+                padding: 2.5vh 4vw;
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .option-icon {
+                margin-right: 0;
+                margin-bottom: 1vh;
+            }
+        }
+
         @media (min-width: 1920px) {
             .container {
                 padding: 3vw;
             }
             
             .options-grid {
-                max-width: 1000px;
-                gap: 4vh;
+                max-width: 800px;
+                gap: 5vh;
             }
             
             .character-grid {
-                max-width: 1400px;
-                gap: 6vw;
+                max-width: 1000px;
+                gap: 8vw;
             }
             
             .option-box {
-                min-height: 18vh;
-                padding: 5vh 4vw;
+                min-height: 12vh;
+                padding: 4vh 5vw;
             }
             
             .character-box {
                 min-height: 55vh;
-                padding: 4vh 3vw;
+                padding: 5vh 4vw;
             }
         }
     </style>
@@ -327,26 +357,29 @@
     <div class="container">
         <!-- Step 1: Option Selection -->
         <div class="step-screen" id="optionSelection">
-            <h1>Holographic Display</h1>
-            <h2>SELECT AN OPTION</h2>
+            <h1>SELECT AN OPTION</h1>
+            <!-- <h2>SELECT AN OPTION</h2> -->
             
             <div class="options-grid">
                 <div class="option-box" onclick="selectOption('joke')">
                     <div class="option-icon">😊</div>
-                    <div class="option-title">TELL ME A JOKE</div>
-                    <div class="option-description">Get ready to laugh with our humor</div>
+                    <div class="option-text">
+                        <div class="option-title">TELL ME A JOKE</div>
+                    </div>
                 </div>
                 
                 <div class="option-box" onclick="selectOption('slang')">
                     <div class="option-icon">💬</div>
-                    <div class="option-title">TEACH ME A GEN Z SLANG</div>
-                    <div class="option-description">Learn the latest trendy words</div>
+                    <div class="option-text">
+                        <div class="option-title">TEACH ME A GEN Z SLANG</div>
+                    </div>
                 </div>
                 
                 <div class="option-box" onclick="selectOption('talent')">
                     <div class="option-icon">✨</div>
-                    <div class="option-title">SHARE A HIDDEN TALENT</div>
-                    <div class="option-description">Discover amazing abilities</div>
+                    <div class="option-text">
+                        <div class="option-title">SHARE A HIDDEN TALENT</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -354,9 +387,7 @@
         <!-- Step 2: Character Selection -->
         <div class="step-screen" id="characterSelection">
             <button class="back-button" onclick="goBack()">← Back</button>
-            <h1>Holographic Display</h1>
-            <h2>CHOOSE YOUR CHARACTER</h2>
-            
+            <h1>CHOOSE YOUR CHARACTER</h1>            
             <div class="selected-option-display" id="selectedOptionDisplay"></div>
             
             <div class="character-grid">
@@ -407,16 +438,16 @@
 
         const imageMappings = {
             'joke': {
-                'adam': 'https://raw.githubusercontent.com/Faris-Faiz/holographic_display.github.io/refs/heads/main/Adam%20Q1%20Thumbnail.png',
-                'liz': 'https://raw.githubusercontent.com/Faris-Faiz/holographic_display.github.io/refs/heads/main/Liz%20Q1%20Thumbnail.png'
+                'adam': 'https://raw.githubusercontent.com/Faris-Faiz/holographic_display.github.io/refs/heads/main/Adam%20Character%20Select.png',
+                'liz': 'https://raw.githubusercontent.com/Faris-Faiz/holographic_display.github.io/refs/heads/main/Liz%20Character%20Select.png'
             },
             'slang': {
-                'adam': 'https://raw.githubusercontent.com/Faris-Faiz/holographic_display.github.io/refs/heads/main/Adam%20Q2%20Thumbnail.png',
-                'liz': 'https://raw.githubusercontent.com/Faris-Faiz/holographic_display.github.io/refs/heads/main/Liz%20Q2%20Thumbnail.png'
+                'adam': 'https://raw.githubusercontent.com/Faris-Faiz/holographic_display.github.io/refs/heads/main/Adam%20Character%20Select.png',
+                'liz': 'https://raw.githubusercontent.com/Faris-Faiz/holographic_display.github.io/refs/heads/main/Liz%20Character%20Select.png'
             },
             'talent': {
-                'adam': 'https://raw.githubusercontent.com/Faris-Faiz/holographic_display.github.io/refs/heads/main/Adam%20Q3%20Thumbnail.png',
-                'liz': 'https://raw.githubusercontent.com/Faris-Faiz/holographic_display.github.io/refs/heads/main/Liz%20Q3%20Thumbnail.png'
+                'adam': 'https://raw.githubusercontent.com/Faris-Faiz/holographic_display.github.io/refs/heads/main/Adam%20Character%20Select.png',
+                'liz': 'https://raw.githubusercontent.com/Faris-Faiz/holographic_display.github.io/refs/heads/main/Liz%20Character%20Select.png'
             }
         };
 
